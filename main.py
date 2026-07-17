@@ -213,13 +213,14 @@ Rules:
         "Content-Type": "application/json",
     }
     payload = {
-        "model": "deepseek-chat",
+        "model": "deepseek-v4-flash",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.3,
         "max_tokens": 16384,
+        "response_format": {"type": "json_object"},
     }
 
-    resp = requests.post(DEEPSEEK_URL, headers=headers, json=payload, timeout=180)
+    resp = requests.post(DEEPSEEK_URL, headers=headers, json=payload, timeout=300)
     resp.raise_for_status()
     result = resp.json()
     raw = result["choices"][0]["message"]["content"].strip()
@@ -230,8 +231,13 @@ Rules:
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
-        logger.error(f"DeepSeek returned invalid JSON:\n{raw[:500]}")
-        raise
+        logger.warning("JSON parse failed, attempting repair...")
+        fixed = re.sub(r'(?<=[\x20-\x7e])[\x00-\x1f](?=[\x20-\x7e])', '', raw)
+        try:
+            return json.loads(fixed)
+        except json.JSONDecodeError:
+            logger.error(f"DeepSeek returned invalid JSON (recovery failed):\n{raw[:800]}")
+            raise
 
 
 def split_paragraphs(text):

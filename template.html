@@ -6,109 +6,146 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <title>Daily English Reading</title>
 </head>
-<body style="margin:0;padding:0;background-color:#F0EDE5;font-family:Georgia,'Times New Roman',serif;">
+<body style="margin:0;padding:0;background-color:#ede8df;font-family:Georgia,'Times New Roman',serif;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 <td align="center" style="padding:0;">
 
 <!-- Main Container -->
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:900px;background-color:#FFFFFF;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:880px;background-color:#FFFFFF;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.08);">
 
 <!-- Header Banner -->
 <tr>
-<td style="background:linear-gradient(135deg,#1a3a4a 0%,#2c5f7a 100%);padding:32px 20px 20px 20px;text-align:center;">
-<div style="font-family:Georgia,serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#a8c8d8;margin-bottom:8px;">Daily English Reading</div>
-<div style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:#FFFFFF;line-height:1.3;margin-bottom:10px;">{{ title }}</div>
+<td style="background:linear-gradient(160deg,#1e3a4f 0%,#2c5f7a 100%);padding:36px 24px 22px 24px;text-align:center;">
+<div style="font-family:Georgia,serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8ab4cc;margin-bottom:12px;">Daily English Reading</div>
+<div style="font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:#FFFFFF;line-height:1.35;margin-bottom:6px;">{{ title }}</div>
 {% if source or author %}
-<div style="font-family:Georgia,serif;font-size:13px;color:#b8d4e0;margin-bottom:14px;line-height:1.6;">
-{% if source %}<span style="font-weight:700;">{{ source }}</span>{% endif %}
+<div style="font-family:Georgia,serif;font-size:13px;color:#a0c4d6;margin-bottom:16px;line-height:1.6;">
+{% if source %}<span style="font-weight:700;color:#c8dde8;">{{ source }}</span>{% endif %}
 {% if author %}<span> · {{ author }}</span>{% endif %}
-{% if published_at %}<span style="display:block;font-size:12px;color:#98bcc8;margin-top:2px;">{{ published_at }}</span>{% endif %}
+{% if published_at %}<span style="display:block;font-size:12px;color:#88aec0;margin-top:3px;">{{ published_at }}</span>{% endif %}
 </div>
 {% endif %}
-<div style="display:inline-block;background:rgba(255,255,255,0.12);border-radius:20px;padding:6px 18px;margin:4px;">
-<span style="font-family:Georgia,serif;font-size:13px;color:#d4e4ed;">⏱ {{ reading_time_min }} min read</span>
+<div style="display:inline-block;background:rgba(255,255,255,0.10);border-radius:16px;padding:5px 16px;margin:3px;">
+<span style="font-family:Georgia,serif;font-size:12px;color:#c8dde8;">⏱ {{ reading_time_min }} min read</span>
 </div>
-<div style="display:inline-block;background:rgba(255,255,255,0.12);border-radius:20px;padding:6px 18px;margin:4px;">
-<span style="font-family:Georgia,serif;font-size:13px;color:#d4e4ed;">📊 {{ difficulty }}</span>
+<div style="display:inline-block;background:rgba(255,255,255,0.10);border-radius:16px;padding:5px 16px;margin:3px;">
+<span style="font-family:Georgia,serif;font-size:12px;color:#c8dde8;">📊 {{ difficulty }}</span>
 </div>
-<div style="font-family:Georgia,serif;font-size:12px;color:#8fb0c0;margin-top:14px;">{{ date }}</div>
+<div style="font-family:Georgia,serif;font-size:11px;color:#7ea8ba;margin-top:14px;">{{ date }}</div>
 </td>
 </tr>
 
 <!-- English Original -->
 <tr>
-<td style="padding:20px 20px 12px 20px;">
-<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-<tr>
-<td style="padding-bottom:8px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1a3a4a;">📖 English Original</span>
-</td>
-</tr>
-</table>
+<td style="padding:24px 24px 10px 24px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📖 English Original</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 20px 20px 20px;">
-<div style="background-color:#FAF9F6;border-left:4px solid #2c5f7a;padding:20px 22px;border-radius:0 8px 8px 0;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.85;color:#2d2d2d;">
+<td style="padding:0 24px 24px 24px;">
+<div style="background-color:#FAF8F5;border-left:3px solid #2c5f7a;padding:18px 22px;border-radius:0 6px 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.9;color:#2b2b2b;">
 {% for paragraph in content_paragraphs %}
-<p style="margin:0 0 16px 0;text-align:justify;text-indent:1.5em;">{{ paragraph | safe }}</p>
+<p style="margin:0 0 14px 0;text-align:justify;text-indent:1.6em;">{{ paragraph | safe }}</p>
 {% endfor %}
 </div>
-<div style="display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:12px;">
-<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#888888;display:inline-flex;align-items:center;gap:4px;">
-<span style="display:inline-block;width:14px;height:14px;background:#fef3c7;border-bottom:2px solid #f59e0b;border-radius:2px;"></span> 重点词汇
+<div style="display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:10px;">
+<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#999;display:inline-flex;align-items:center;gap:5px;">
+<span style="display:inline-block;width:12px;height:12px;background:#fef3c7;border-radius:2px;"></span> 重点词汇
 </span>
-<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#888888;display:inline-flex;align-items:center;gap:4px;">
-<span style="display:inline-block;width:14px;height:14px;border-bottom:3px dotted #8b5cf6;"></span> 长难句
+<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#999;display:inline-flex;align-items:center;gap:5px;">
+<span style="display:inline-block;width:14px;height:10px;border-bottom:3px dotted #8b5cf6;"></span> 长难句
 </span>
 </div>
 </td>
+
+<!-- Paragraph-by-Paragraph Bilingual -->
 <tr>
-<td style="padding:20px 20px 12px 20px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1a3a4a;">🇨🇳 中文翻译</span>
+<td style="padding:0 24px 8px 24px;">
+<div style="border-top:1px solid #e6e0d4;"></div>
 </td>
 </tr>
 <tr>
-<td style="padding:0 20px 20px 20px;">
-<div style="background-color:#eef2f7;padding:20px 22px;border-radius:8px;font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB',sans-serif;font-size:15px;line-height:1.85;color:#333333;">
-{% for paragraph in translation_paragraphs %}
-<p style="margin:0 0 12px 0;text-align:justify;">{{ paragraph }}</p>
-{% endfor %}
+<td style="padding:20px 24px 8px 24px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📖 逐段精读</span>
+{% if title_cn %}
+<span style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:15px;color:#8b7355;margin-left:12px;">{{ title_cn }}</span>
+{% endif %}
+</td>
+</tr>
+{% for en, zh in paragraph_pairs %}
+<tr>
+<td style="padding:0 24px {{ '20' if loop.last else '0' }}px 24px;">
+<div style="border:1px solid #e4ded0;border-radius:6px;overflow:hidden;margin-bottom:{{ '0' if loop.last else '14' }}px;">
+<!-- English -->
+<div style="background-color:#FAF8F5;padding:14px 18px 10px 18px;font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.8;color:#2b2b2b;">
+<p style="margin:0;text-align:justify;text-indent:1.6em;">{{ en | safe }}</p>
+</div>
+<!-- Chinese -->
+<div style="background-color:#f3f0ea;padding:10px 18px 14px 18px;font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB',sans-serif;font-size:14px;line-height:1.8;color:#3a3a3a;">
+<p style="margin:0;text-align:justify;">{{ zh }}</p>
+</div>
 </div>
 </td>
 </tr>
+{% endfor %}
 
 <!-- Divider -->
-<tr><td style="padding:0 20px;"><div style="border-top:1px solid #e8e4dc;"></div></td></tr>
+<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
 
 <!-- Key Vocabulary -->
 <tr>
-<td style="padding:20px 20px 12px 20px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1a3a4a;">📝 Key Vocabulary</span>
+<td style="padding:20px 24px 10px 24px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📝 Key Vocabulary</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 20px 20px 20px;">
+<td style="padding:0 24px 24px 24px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 {% for row in vocab_rows %}
 <tr>
 {% for v in row %}
-<td width="50%" style="padding:0 {{ '8' if loop.index == 1 else '0' }}px 12px {{ '0' if loop.index == 1 else '8' }}px;" valign="top">
-<div style="background-color:#fdf8ef;border:1px solid #f0e4cc;border-radius:8px;padding:16px;height:100%;">
-<div style="margin-bottom:6px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:#1a3a4a;">{{ v.word }}</span>
-<span style="font-family:Georgia,serif;font-size:13px;color:#888888;margin-left:6px;">{{ v.phonetic }}</span>
+<td width="50%" style="padding:0 {{ '8' if loop.index == 1 else '0' }}px 14px {{ '0' if loop.index == 1 else '8' }}px;" valign="top">
+<div style="background-color:#fdfaf4;border:1px solid #e8ddc8;border-radius:8px;padding:16px;height:100%;">
+<div style="margin-bottom:4px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#1e3a4f;">{{ v.word }}</span>
+<span style="font-family:Georgia,serif;font-size:13px;color:#999;margin-left:6px;">{{ v.phonetic }}</span>
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#8b6914;margin-bottom:8px;font-weight:600;">{{ v.meaning_cn }}</div>
-<div style="font-family:Georgia,serif;font-size:12px;color:#666666;font-style:italic;line-height:1.5;">
-📎 {{ v.sentence_html | safe }}
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#8b6914;margin-bottom:5px;font-weight:600;">{{ v.meaning_cn }}</div>
+{% if v.get('definition') and v.definition|length > 0 %}
+<div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;color:#6b6b6b;font-style:italic;line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #d8cdb0;">
+{{ v.definition }}
 </div>
+{% endif %}
+<!-- 例句 -->
+<div style="font-family:Georgia,serif;font-size:12px;color:#777;font-style:italic;line-height:1.5;margin-bottom:5px;padding-bottom:5px;border-bottom:1px dashed #e8e0cc;">
+📎 <span style="font-weight:600;color:#8b6914;">例句:</span> {{ v.sentence_html | safe }}
+</div>
+{% if v.get('phrases') and v.phrases|length > 0 %}
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#2c5f7a;margin-bottom:3px;line-height:1.5;">
+🔗 <span style="font-weight:600;">搭配:</span> {{ v.phrases }}
+</div>
+{% endif %}
+{% if v.get('derivatives') and v.derivatives|length > 0 %}
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#3d7a3d;margin-bottom:3px;line-height:1.5;">
+🌿 <span style="font-weight:600;">派生:</span> {{ v.derivatives }}
+</div>
+{% endif %}
+{% if v.get('same_root_words') and v.same_root_words|length > 0 %}
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#0d9488;margin-bottom:3px;line-height:1.5;">
+🌳 <span style="font-weight:600;">同根:</span> {{ v.same_root_words }}
+</div>
+{% endif %}
+{% if v.get('synonyms') and v.synonyms|length > 0 %}
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#c07a2e;margin-bottom:0;line-height:1.5;">
+🔄 <span style="font-weight:600;">近义:</span> {{ v.synonyms }}
+</div>
+{% endif %}
 </div>
 </td>
 {% endfor %}
 {% if row|length == 1 %}
-<td width="50%" style="padding:0 0 12px 8px;" valign="top"></td>
+<td width="50%" style="padding:0 0 14px 8px;" valign="top"></td>
 {% endif %}
 </tr>
 {% endfor %}
@@ -118,24 +155,24 @@
 
 {% if difficult_sentence %}
 <!-- Divider -->
-<tr><td style="padding:0 20px;"><div style="border-top:1px solid #e8e4dc;"></div></td></tr>
+<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
 
-<!-- Difficult Sentence Breakdown -->
+<!-- Difficult Sentence -->
 <tr>
-<td style="padding:20px 20px 12px 20px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1a3a4a;">🔍 长难句拆解</span>
+<td style="padding:20px 24px 10px 24px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">🔍 长难句拆解</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 20px 20px 20px;">
-<div style="background-color:#f5eeff;border-radius:8px;padding:20px 22px;">
-<div style="font-family:Georgia,serif;font-size:14px;color:#2d2d2d;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d4c0f0;">
+<td style="padding:0 24px 24px 24px;">
+<div style="background-color:#f8f4ff;border-radius:8px;padding:20px 22px;">
+<div style="font-family:Georgia,serif;font-size:14px;color:#2d2d2d;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d8c8f0;">
 <span style="font-weight:700;color:#6b3fa0;">Original:</span><br>{{ difficult_sentence.original }}
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#555555;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d4c0f0;">
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d8c8f0;">
 <span style="font-weight:700;color:#6b3fa0;">语法拆解:</span><br>{{ difficult_sentence.parsing }}
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:14px;color:#333333;line-height:1.7;">
+<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:14px;color:#333;line-height:1.7;">
 <span style="font-weight:700;color:#6b3fa0;">参考翻译:</span><br>{{ difficult_sentence.translation }}
 </div>
 </div>
@@ -145,17 +182,17 @@
 
 {% if daily_quote %}
 <!-- Divider -->
-<tr><td style="padding:0 20px;"><div style="border-top:1px solid #e8e4dc;"></div></td></tr>
+<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
 
 <!-- Daily Quote -->
 <tr>
-<td style="padding:24px 20px 4px 20px;text-align:center;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;color:#1a3a4a;">💬 Today's Quote</span>
+<td style="padding:22px 24px 6px 24px;text-align:center;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;color:#1e3a4f;">💬 Today's Quote</span>
 </td>
 </tr>
 <tr>
-<td style="padding:12px 20px 20px 20px;text-align:center;">
-<div style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-style:italic;color:#555555;line-height:1.6;">
+<td style="padding:10px 24px 24px 24px;text-align:center;">
+<div style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-style:italic;color:#666;line-height:1.6;">
 &ldquo;{{ daily_quote }}&rdquo;
 </div>
 </td>
@@ -164,14 +201,14 @@
 
 <!-- Footer -->
 <tr>
-<td style="background-color:#FAF9F6;padding:20px 20px;text-align:center;border-top:1px solid #e8e4dc;">
-<div style="font-family:Georgia,serif;font-size:12px;color:#999999;line-height:1.8;">
+<td style="background-color:#FAF8F5;padding:18px 24px;text-align:center;border-top:1px solid #e6e0d4;">
+<div style="font-family:Georgia,serif;font-size:12px;color:#aaa;line-height:1.8;">
 🔗 <a href="{{ source_url }}" style="color:#2c5f7a;text-decoration:underline;">Read original article</a>
 {% if source_name %}
 &nbsp;·&nbsp; Source: {{ source_name }}
 {% endif %}
 </div>
-<div style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#bbbbbb;margin-top:8px;">
+<div style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#c0c0c0;margin-top:8px;">
 每日英语外刊 · 自动推送 · {{ date }}
 </div>
 </td>

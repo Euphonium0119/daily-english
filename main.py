@@ -127,7 +127,7 @@ def highlight_content(content, vocabulary, difficult_sentence):
             if ds_escaped in para:
                 para = para.replace(
                     ds_escaped,
-                    f'<span style="border-bottom:3px dotted #8b5cf6;padding-bottom:2px;background:rgba(139,92,246,0.06);">{ds_escaped}</span>'
+                    f'<span style="border-bottom:3px dotted #8b5cf6;padding-bottom:2px;background:rgba(139,92,246,0.08);">{ds_escaped}</span>'
                 )
 
         # 第二步：标记重点词汇
@@ -136,7 +136,7 @@ def highlight_content(content, vocabulary, difficult_sentence):
             escaped_word = re.escape(word)
             pattern = rf'\b({escaped_word})\b'
             replacement = (
-                r'<span style="background:#fef3c7;border-bottom:2px solid #f59e0b;'
+                r'<span style="background:#fef3c7;'
                 r'padding:0 2px;border-radius:2px;cursor:help;" title="'
                 + v.get("meaning_cn", "").replace('"', '&quot;')
                 + r'">\1</span>'
@@ -167,9 +167,21 @@ Article content:
 Return exactly this JSON structure:
 {{
   "title_cn": "文章标题的中文翻译",
-  "translation": "全文的中文翻译。保持原文段落结构，用 \\n\\n 分隔段落。翻译要流畅自然，符合中文新闻语体。",
+  "bilingual_paragraphs": [
+    {{"en": "原文段落（必须与原文逐字一致，包括标点）", "zh": "该段的中文翻译，流畅自然，符合中文新闻语体"}}
+  ],
   "vocabulary": [
-    {{"word": "英文原词（保持原文中的大小写形式）", "phonetic": "/音标/", "meaning_cn": "中文释义", "sentence": "一个简短的自创例句，不超过15个单词，必须包含该词汇，帮助用户理解词的用法"}}
+    {{
+      "word": "英文原词（保持原文中的大小写形式）",
+      "phonetic": "/音标/",
+      "meaning_cn": "中文释义",
+      "definition": "用简洁英文解释该词在文中的含义，类似剑桥词典风格，一句话即可。如 'unprecedented' → 'never having happened or existed before'",
+      "sentence": "一个简短的自创例句，不超过15个单词，必须包含该词汇，帮助用户理解词的用法",
+      "phrases": "该词的2-4个常用词组搭配，用分号分隔，如 'take measures; drastic measures; security measures'。若没有明显的常用搭配则留空字符串 ''",
+      "derivatives": "该词的派生词（不同词性变化），每个派生词必须带中文释义。格式如 'create → creation (n. 创造), creative (adj. 有创造力的), creativity (n. 创造力), creator (n. 创造者)'。若没有常见派生词则留空字符串 ''",
+      "same_root_words": "先给出词根及含义，再列出同根词。格式如 '词根: dict- (=say, 说) → predict, dictate, contradict, indicate, verdict'。若没有明显的同根词则留空字符串 ''",
+      "synonyms": "该词的2-4个近义词，用分号分隔，如 'important → crucial; vital; significant; essential'。若没有合适的近义词则留空字符串 ''"
+    }}
   ],
   "difficult_sentence": {{
     "original": "从文中选一句语法结构最复杂的句子（必须是原文中真实存在的完整句子）",
@@ -182,8 +194,15 @@ Return exactly this JSON structure:
 }}
 
 Rules:
-- vocabulary: pick 6-8 medium-to-hard words (not basic words like 'the', 'say', 'people'). For each word, create a SHORT original example sentence (max 15 words) — do NOT quote from the article
+- vocabulary: pick ALL medium-to-hard words worth learning — do NOT cap the count. 10-20+ words is fine. Include every word an intermediate English learner might not know. Exclude basic words (the, say, people, day, etc.)
+- definition: a concise English explanation of the word, Cambridge Dictionary style, one sentence. E.g. 'never having happened or existed before'. Use empty string "" for function words that don't need definition.
+- sentence: SHORT original example sentence, max 15 words. Do NOT quote from the article. Make it natural and helpful for understanding the word in context.
+- phrases: 2-4 common collocations or fixed phrases using this word, separated by semicolons. Use empty string "" if none.
+- derivatives: word-family members with different parts of speech (noun/verb/adj/adv). Each derivative MUST include its Chinese meaning after it, in parentheses. Format: 'create → creation (n. 创造), creative (adj. 有创造力的), creativity (n. 创造力)'. Use empty string "" if no common derivatives.
+- same_root_words: state the shared ROOT and its meaning FIRST, then list same-root words. Format: '词根: dict- (=say, 说) → predict, dictate, contradict, indicate, verdict'. Use empty string "" if no clear root.
+- synonyms: 2-4 near-synonyms, separated by semicolons. Format: 'crucial; vital; essential; significant'. Use empty string "" if none.
 - phonetic: use standard IPA notation
+- bilingual_paragraphs: split the article by its natural paragraph breaks (\\n\\n). For EACH paragraph, include the ORIGINAL English text (en, must be character-for-character identical to the source) and its Chinese translation (zh). The number of items MUST equal the number of paragraphs in the source. Do NOT merge or skip any paragraph.
 - difficult_sentence: pick ONE genuinely complex sentence with layered clauses, must be an exact original sentence from the article
 - daily_quote: ONE sentence worth memorizing, idiomatic and useful, must be from the article
 - difficulty: prefer B1 or B2 (intermediate level, suitable for English learners). B1=中等难度, B2=中高难度. Avoid C1 unless the article is truly academic
@@ -197,7 +216,7 @@ Rules:
         "model": "deepseek-chat",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.3,
-        "max_tokens": 8192,
+        "max_tokens": 16384,
     }
 
     resp = requests.post(DEEPSEEK_URL, headers=headers, json=payload, timeout=180)
@@ -249,17 +268,34 @@ def render_email(article, analysis):
     for v in vocab:
         v["sentence_html"] = highlight_word_in_sentence(v.get("sentence", ""), v.get("word", ""))
 
-    # 生成高亮版原文段落
+    # 生成高亮版原文段落（用于 English Original 区）
     highlighted = highlight_content(article["content"], vocab, ds if ds.get("original") else None)
+
+    # 构建逐段对照：直接用 DeepSeek 返回的段落配对，对每段英文做高亮
+    bilingual = analysis.get("bilingual_paragraphs", [])
+    paragraph_pairs = []
+    for pair in bilingual:
+        en_text = pair.get("en", "")
+        zh_text = pair.get("zh", "")
+        # 对单个段落做高亮
+        highlighted_parts = highlight_content(en_text, vocab, ds if ds.get("original") else None)
+        en_html = highlighted_parts[0] if highlighted_parts else en_text
+        paragraph_pairs.append((en_html, zh_text))
+    if not paragraph_pairs:
+        logger.warning("bilingual_paragraphs 为空，回退到 zip 模式")
+        trans_paras = split_paragraphs(analysis.get("translation", ""))
+        pair_count = min(len(highlighted), len(trans_paras))
+        paragraph_pairs = list(zip(highlighted[:pair_count], trans_paras[:pair_count]))
 
     html = template.render(
         title=article["title"],
+        title_cn=analysis.get("title_cn", ""),
         date=datetime.now().strftime("%B %d, %Y"),
         source=article.get("source", ""),
         author=article.get("author", ""),
         published_at=article.get("published_at", ""),
         content_paragraphs=highlighted,
-        translation_paragraphs=split_paragraphs(analysis.get("translation", "")),
+        paragraph_pairs=paragraph_pairs,
         vocab_rows=chunk_vocabulary(vocab),
         difficult_sentence=ds if ds.get("original") else None,
         daily_quote=analysis.get("daily_quote", ""),

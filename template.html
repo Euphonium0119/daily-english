@@ -156,22 +156,27 @@
 </div>
 <!-- Tier 3: extended info -->
 {% if (v.get('phrases') and v.phrases|length > 0) or (v.get('derivatives') and v.derivatives|length > 0) or (v.get('same_root_words') and v.same_root_words|length > 0) or (v.get('synonyms') and v.synonyms|length > 0) %}
-<div style="padding-top:4px;">
-<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:11px;color:{{ theme.text_secondary }};text-transform:uppercase;letter-spacing:1px;">📋 更多</span>
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:12px;color:{{ theme.text_secondary }};line-height:1.7;margin-top:2px;">
+<div style="padding-top:2px;border-top:1px dashed {{ theme.card_border }};margin-top:4px;">
 {% if v.get('phrases') and v.phrases|length > 0 %}
-<span style="color:{{ theme.accent }};">搭配</span> {{ v.phrases }}<br>
+<div style="margin-bottom:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;line-height:1.6;color:#444;">
+<span style="display:inline-block;background:{{ theme.accent }}15;color:{{ theme.accent }};font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:6px;vertical-align:middle;">搭配</span> {{ v.phrases }}
+</div>
 {% endif %}
 {% if v.get('synonyms') and v.synonyms|length > 0 %}
-<span style="color:{{ theme.accent }};">近义</span> {{ v.synonyms }}<br>
+<div style="margin-bottom:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;line-height:1.6;color:#444;">
+<span style="display:inline-block;background:{{ theme.accent }}15;color:{{ theme.accent }};font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:6px;vertical-align:middle;">近义</span> {{ v.synonyms }}
+</div>
 {% endif %}
 {% if v.get('derivatives') and v.derivatives|length > 0 %}
-<span style="color:{{ theme.accent }};">派生</span> {{ v.derivatives }}<br>
+<div style="margin-bottom:6px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;line-height:1.6;color:#444;">
+<span style="display:inline-block;background:{{ theme.accent }}15;color:{{ theme.accent }};font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:6px;vertical-align:middle;">派生</span> {{ v.derivatives }}
+</div>
 {% endif %}
 {% if v.get('same_root_words') and v.same_root_words|length > 0 %}
-<span style="color:{{ theme.accent }};">同根</span> {{ v.same_root_words }}
-{% endif %}
+<div style="margin-bottom:2px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;line-height:1.6;color:#444;">
+<span style="display:inline-block;background:{{ theme.accent }}15;color:{{ theme.accent }};font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:6px;vertical-align:middle;">同根</span> {{ v.same_root_words }}
 </div>
+{% endif %}
 </div>
 {% endif %}
 </div>

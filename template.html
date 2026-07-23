@@ -141,24 +141,24 @@
 <div class="card-inner" style="background-color:{{ theme.card_bg }};border:1px solid {{ theme.card_border }};border-radius:8px;padding:14px;height:100%;">
 <!-- Tier 1: word + phonetic + meaning -->
 <div style="margin-bottom:3px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:{{ theme.header_start }};">{{ v.word }}</span>
-<span style="font-family:Georgia,serif;font-size:12px;color:{{ theme.text_secondary }};margin-left:5px;">{{ v.phonetic }}</span>
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:{{ theme.header_start }};">{{ v.word }}</span>
+<span style="font-family:Georgia,serif;font-size:13px;color:{{ theme.text_secondary }};margin-left:5px;">{{ v.phonetic }}</span>
 </div>
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;color:{{ theme.accent }};margin-bottom:4px;font-weight:600;">{{ v.meaning_cn }}</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;color:{{ theme.accent }};margin-bottom:4px;font-weight:600;">{{ v.meaning_cn }}</div>
 <!-- Tier 2: definition + sentence -->
 {% if v.get('definition') and v.definition|length > 0 %}
-<div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;color:#6b6b6b;font-style:italic;line-height:1.5;margin-bottom:5px;padding-left:8px;border-left:2px solid {{ theme.card_border }};">
+<div style="font-family:Georgia,'Times New Roman',serif;font-size:13px;color:#6b6b6b;font-style:italic;line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid {{ theme.card_border }};">
 {{ v.definition }}
 </div>
 {% endif %}
-<div style="font-family:Georgia,serif;font-size:12px;color:#777;font-style:italic;line-height:1.5;margin-bottom:5px;padding-bottom:5px;border-bottom:1px dashed {{ theme.card_border }};">
-📎 <span style="font-weight:600;color:{{ theme.accent }};">例句:</span> {{ v.sentence_html | safe }}
+<div style="font-family:Georgia,serif;font-size:14px;color:#333;line-height:1.6;margin-bottom:6px;padding:8px 12px;background:rgba(255,255,255,0.6);border-left:3px solid {{ theme.accent }};border-radius:0 4px 4px 0;">
+📎 <span style="font-weight:700;color:{{ theme.accent }};">例句</span> {{ v.sentence_html | safe }}
 </div>
 <!-- Tier 3: extended info -->
 {% if (v.get('phrases') and v.phrases|length > 0) or (v.get('derivatives') and v.derivatives|length > 0) or (v.get('same_root_words') and v.same_root_words|length > 0) or (v.get('synonyms') and v.synonyms|length > 0) %}
 <div style="padding-top:4px;">
-<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:10px;color:{{ theme.text_secondary }};text-transform:uppercase;letter-spacing:1px;">📋 更多</span>
-<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:11px;color:{{ theme.text_secondary }};line-height:1.6;margin-top:2px;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:11px;color:{{ theme.text_secondary }};text-transform:uppercase;letter-spacing:1px;">📋 更多</span>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:12px;color:{{ theme.text_secondary }};line-height:1.7;margin-top:2px;">
 {% if v.get('phrases') and v.phrases|length > 0 %}
 <span style="color:{{ theme.accent }};">搭配</span> {{ v.phrases }}<br>
 {% endif %}

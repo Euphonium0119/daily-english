@@ -3,10 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="x-apple-disable-message-reformatting" content="">
+<meta name="format-detection" content="telephone=no">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <title>Daily English Reading</title>
+<style>
+@media (max-width:480px) {
+  .header-pad { padding:24px 12px 16px !important; }
+  .title-text { font-size:20px !important; }
+  .body-pad { padding:0 10px !important; }
+  .body-pad-x { padding-left:10px !important; padding-right:10px !important; }
+  .vocab-cell { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
+  .section-head { font-size:17px !important; }
+  .content-inner { padding:12px 14px !important; font-size:14px !important; line-height:1.7 !important; }
+  .bilingual-cell { padding:0 10px !important; }
+  .bilingual-en { padding:10px 12px 8px 12px !important; font-size:13px !important; line-height:1.65 !important; }
+  .bilingual-zh { padding:8px 12px 10px 12px !important; font-size:13px !important; line-height:1.65 !important; }
+  .card-inner { padding:12px !important; }
+  .grammar-inner { padding:14px 16px !important; }
+  .ds-inner { padding:16px 16px !important; }
+  .quote-inner { padding:14px 16px !important; }
+}
+</style>
 </head>
-<body style="margin:0;padding:0;background-color:#ede8df;font-family:Georgia,'Times New Roman',serif;">
+<body style="margin:0;padding:0;background-color:{{ theme.bg }};font-family:Georgia,'Times New Roman',serif;">
+
+<!-- Top accent rule -->
+<div style="height:3px;background-color:{{ theme.accent }};width:100%;"></div>
+
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tr>
 <td align="center" style="padding:0;">
@@ -16,136 +40,145 @@
 
 <!-- Header Banner -->
 <tr>
-<td style="background:linear-gradient(160deg,#1e3a4f 0%,#2c5f7a 100%);padding:36px 24px 22px 24px;text-align:center;">
-<div style="font-family:Georgia,serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8ab4cc;margin-bottom:12px;">Daily English Reading</div>
-<div style="font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:#FFFFFF;line-height:1.35;margin-bottom:6px;">{{ title }}</div>
+<td class="header-pad" style="background:linear-gradient(160deg,{{ theme.header_start }} 0%,{{ theme.header_end }} 100%);padding:36px 24px 22px 24px;text-align:center;">
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:{{ theme.header_text }};margin-bottom:12px;">Daily English Reading · {{ theme.name }}</div>
+<div class="title-text" style="font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;color:#FFFFFF;line-height:1.35;margin-bottom:6px;">{{ title }}</div>
 {% if source or author %}
-<div style="font-family:Georgia,serif;font-size:13px;color:#a0c4d6;margin-bottom:16px;line-height:1.6;">
-{% if source %}<span style="font-weight:700;color:#c8dde8;">{{ source }}</span>{% endif %}
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:13px;color:{{ theme.header_sub }};margin-bottom:16px;line-height:1.6;">
+{% if source %}<span style="font-weight:700;color:{{ theme.header_text }};">{{ source }}</span>{% endif %}
 {% if author %}<span> · {{ author }}</span>{% endif %}
-{% if published_at %}<span style="display:block;font-size:12px;color:#88aec0;margin-top:3px;">{{ published_at }}</span>{% endif %}
+{% if published_at %}<span style="display:block;font-size:12px;color:{{ theme.header_meta }};margin-top:3px;">{{ published_at }}</span>{% endif %}
 </div>
 {% endif %}
 <div style="display:inline-block;background:rgba(255,255,255,0.10);border-radius:16px;padding:5px 16px;margin:3px;">
-<span style="font-family:Georgia,serif;font-size:12px;color:#c8dde8;">⏱ {{ reading_time_min }} min read</span>
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:{{ theme.header_text }};">⏱ {{ reading_time_min }} min read</span>
 </div>
 <div style="display:inline-block;background:rgba(255,255,255,0.10);border-radius:16px;padding:5px 16px;margin:3px;">
-<span style="font-family:Georgia,serif;font-size:12px;color:#c8dde8;">📊 {{ difficulty }}</span>
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:{{ theme.header_text }};">📊 {{ difficulty }}</span>
 </div>
-<div style="font-family:Georgia,serif;font-size:11px;color:#7ea8ba;margin-top:14px;">{{ date }}</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:11px;color:{{ theme.header_meta }};margin-top:14px;">{{ date }}</div>
 </td>
 </tr>
 
-<!-- English Original -->
+<!-- ① English Original -->
 <tr>
-<td style="padding:24px 24px 10px 24px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📖 English Original</span>
+<td class="body-pad-x" style="padding:24px 24px 10px 24px;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:{{ theme.header_start }};">① English Original</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 24px 24px 24px;">
-<div style="background-color:#FAF8F5;border-left:3px solid #2c5f7a;padding:18px 22px;border-radius:0 6px 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.9;color:#2b2b2b;">
+<td class="body-pad" style="padding:0 24px 24px 24px;">
+<div class="content-inner" style="background-color:{{ theme.section_bg }};border-left:3px solid {{ theme.accent }};padding:18px 22px;border-radius:0 6px 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:15px;line-height:1.9;color:#2b2b2b;">
 {% for paragraph in content_paragraphs %}
-<p style="margin:0 0 14px 0;text-align:justify;text-indent:1.6em;">{{ paragraph | safe }}</p>
+<p style="margin:0 0 14px 0;text-align:justify;{% if not loop.first %}text-indent:1.6em;{% endif %}">{{ paragraph | safe }}</p>
 {% endfor %}
 </div>
 <div style="display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:10px;">
-<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#999;display:inline-flex;align-items:center;gap:5px;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:11px;color:{{ theme.text_secondary }};display:inline-flex;align-items:center;gap:5px;">
 <span style="display:inline-block;width:12px;height:12px;background:#fef3c7;border-radius:2px;"></span> 重点词汇
 </span>
-<span style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#999;display:inline-flex;align-items:center;gap:5px;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:11px;color:{{ theme.text_secondary }};display:inline-flex;align-items:center;gap:5px;">
 <span style="display:inline-block;width:14px;height:10px;border-bottom:3px dotted #8b5cf6;"></span> 长难句
 </span>
 </div>
 </td>
 
-<!-- Paragraph-by-Paragraph Bilingual -->
+<!-- ② Paragraph-by-Paragraph Bilingual -->
 <tr>
-<td style="padding:0 24px 8px 24px;">
-<div style="border-top:1px solid #e6e0d4;"></div>
+<td class="body-pad-x" style="padding:8px 24px;">
+<div style="border-top:1px dotted {{ theme.divider }};"></div>
 </td>
 </tr>
 <tr>
-<td style="padding:20px 24px 8px 24px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📖 逐段精读</span>
+<td class="body-pad-x" style="padding:20px 24px 8px 24px;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:{{ theme.header_start }};">② 逐段精读</span>
 {% if title_cn %}
-<span style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:15px;color:#8b7355;margin-left:12px;">{{ title_cn }}</span>
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;color:{{ theme.text_secondary }};margin-left:12px;">{{ title_cn }}</span>
 {% endif %}
 </td>
 </tr>
-{% for en, zh in paragraph_pairs %}
 <tr>
-<td style="padding:0 24px {{ '20' if loop.last else '0' }}px 24px;">
-<div style="border:1px solid #e4ded0;border-radius:6px;overflow:hidden;margin-bottom:{{ '0' if loop.last else '14' }}px;">
+<td style="padding:0 24px 0 24px;">
+<div style="background:linear-gradient(180deg,{{ theme.section_bg }} 0%,#FFF 100%);border-radius:8px;padding:4px 0 8px 0;">
+{% for en, zh in paragraph_pairs %}
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:{{ '0' if loop.last else '12' }}px;">
+<tr>
+<td class="body-pad-x bilingual-cell" style="padding:0 20px;">
+<div style="border:1px solid {{ theme.card_border }};border-radius:6px;overflow:hidden;">
 <!-- English -->
-<div style="background-color:#FAF8F5;padding:14px 18px 10px 18px;font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.8;color:#2b2b2b;">
+<div class="bilingual-en" style="background-color:{{ theme.card_bg }};padding:14px 18px 10px 18px;font-family:Georgia,'Times New Roman',serif;font-size:14px;line-height:1.8;color:#2b2b2b;">
 <p style="margin:0;text-align:justify;text-indent:1.6em;">{{ en | safe }}</p>
 </div>
 <!-- Chinese -->
-<div style="background-color:#f3f0ea;padding:10px 18px 14px 18px;font-family:'Microsoft YaHei','PingFang SC','Hiragino Sans GB',sans-serif;font-size:14px;line-height:1.8;color:#3a3a3a;">
+<div class="bilingual-zh" style="background-color:{{ theme.section_bg }};padding:10px 18px 14px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;line-height:1.8;color:#3a3a3a;">
 <p style="margin:0;text-align:justify;">{{ zh }}</p>
 </div>
 </div>
 </td>
 </tr>
+</table>
 {% endfor %}
+</div>
+</td>
+</tr>
 
 <!-- Divider -->
-<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
+<tr><td class="body-pad-x" style="padding:8px 24px;"><div style="border-top:1px dotted {{ theme.divider }};"></div></td></tr>
 
-<!-- Key Vocabulary -->
+<!-- ③ Key Vocabulary -->
 <tr>
-<td style="padding:20px 24px 10px 24px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">📝 Key Vocabulary</span>
+<td class="body-pad-x" style="padding:20px 24px 10px 24px;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:{{ theme.header_start }};">③ Key Vocabulary</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 24px 24px 24px;">
+<td class="body-pad" style="padding:0 24px 24px 24px;">
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
 {% for row in vocab_rows %}
 <tr>
 {% for v in row %}
-<td width="50%" style="padding:0 {{ '8' if loop.index == 1 else '0' }}px 14px {{ '0' if loop.index == 1 else '8' }}px;" valign="top">
-<div style="background-color:#fdfaf4;border:1px solid #e8ddc8;border-radius:8px;padding:16px;height:100%;">
-<div style="margin-bottom:4px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:#1e3a4f;">{{ v.word }}</span>
-<span style="font-family:Georgia,serif;font-size:13px;color:#999;margin-left:6px;">{{ v.phonetic }}</span>
+<td class="vocab-cell" width="50%" style="padding:0 {{ '8' if loop.index == 1 else '0' }}px 14px {{ '0' if loop.index == 1 else '8' }}px;" valign="top">
+<div class="card-inner" style="background-color:{{ theme.card_bg }};border:1px solid {{ theme.card_border }};border-radius:8px;padding:14px;height:100%;">
+<!-- Tier 1: word + phonetic + meaning -->
+<div style="margin-bottom:3px;">
+<span style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:{{ theme.header_start }};">{{ v.word }}</span>
+<span style="font-family:Georgia,serif;font-size:12px;color:{{ theme.text_secondary }};margin-left:5px;">{{ v.phonetic }}</span>
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#8b6914;margin-bottom:5px;font-weight:600;">{{ v.meaning_cn }}</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;color:{{ theme.accent }};margin-bottom:4px;font-weight:600;">{{ v.meaning_cn }}</div>
+<!-- Tier 2: definition + sentence -->
 {% if v.get('definition') and v.definition|length > 0 %}
-<div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;color:#6b6b6b;font-style:italic;line-height:1.5;margin-bottom:6px;padding-left:8px;border-left:2px solid #d8cdb0;">
+<div style="font-family:Georgia,'Times New Roman',serif;font-size:12px;color:#6b6b6b;font-style:italic;line-height:1.5;margin-bottom:5px;padding-left:8px;border-left:2px solid {{ theme.card_border }};">
 {{ v.definition }}
 </div>
 {% endif %}
-<!-- 例句 -->
-<div style="font-family:Georgia,serif;font-size:12px;color:#777;font-style:italic;line-height:1.5;margin-bottom:5px;padding-bottom:5px;border-bottom:1px dashed #e8e0cc;">
-📎 <span style="font-weight:600;color:#8b6914;">例句:</span> {{ v.sentence_html | safe }}
+<div style="font-family:Georgia,serif;font-size:12px;color:#777;font-style:italic;line-height:1.5;margin-bottom:5px;padding-bottom:5px;border-bottom:1px dashed {{ theme.card_border }};">
+📎 <span style="font-weight:600;color:{{ theme.accent }};">例句:</span> {{ v.sentence_html | safe }}
 </div>
+<!-- Tier 3: extended info -->
+{% if (v.get('phrases') and v.phrases|length > 0) or (v.get('derivatives') and v.derivatives|length > 0) or (v.get('same_root_words') and v.same_root_words|length > 0) or (v.get('synonyms') and v.synonyms|length > 0) %}
+<div style="padding-top:4px;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:10px;color:{{ theme.text_secondary }};text-transform:uppercase;letter-spacing:1px;">📋 更多</span>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:11px;color:{{ theme.text_secondary }};line-height:1.6;margin-top:2px;">
 {% if v.get('phrases') and v.phrases|length > 0 %}
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#2c5f7a;margin-bottom:3px;line-height:1.5;">
-🔗 <span style="font-weight:600;">搭配:</span> {{ v.phrases }}
-</div>
-{% endif %}
-{% if v.get('derivatives') and v.derivatives|length > 0 %}
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#3d7a3d;margin-bottom:3px;line-height:1.5;">
-🌿 <span style="font-weight:600;">派生:</span> {{ v.derivatives }}
-</div>
-{% endif %}
-{% if v.get('same_root_words') and v.same_root_words|length > 0 %}
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#0d9488;margin-bottom:3px;line-height:1.5;">
-🌳 <span style="font-weight:600;">同根:</span> {{ v.same_root_words }}
-</div>
+<span style="color:{{ theme.accent }};">搭配</span> {{ v.phrases }}<br>
 {% endif %}
 {% if v.get('synonyms') and v.synonyms|length > 0 %}
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:11px;color:#c07a2e;margin-bottom:0;line-height:1.5;">
-🔄 <span style="font-weight:600;">近义:</span> {{ v.synonyms }}
+<span style="color:{{ theme.accent }};">近义</span> {{ v.synonyms }}<br>
+{% endif %}
+{% if v.get('derivatives') and v.derivatives|length > 0 %}
+<span style="color:{{ theme.accent }};">派生</span> {{ v.derivatives }}<br>
+{% endif %}
+{% if v.get('same_root_words') and v.same_root_words|length > 0 %}
+<span style="color:{{ theme.accent }};">同根</span> {{ v.same_root_words }}
+{% endif %}
+</div>
 </div>
 {% endif %}
 </div>
 </td>
 {% endfor %}
 {% if row|length == 1 %}
-<td width="50%" style="padding:0 0 14px 8px;" valign="top"></td>
+<td class="vocab-cell" width="50%" style="padding:0 0 14px 8px;" valign="top"></td>
 {% endif %}
 </tr>
 {% endfor %}
@@ -153,27 +186,69 @@
 </td>
 </tr>
 
-{% if difficult_sentence %}
+{% if grammar_tip %}
 <!-- Divider -->
-<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
+<tr><td class="body-pad-x" style="padding:8px 24px;"><div style="border-top:1px dotted {{ theme.divider }};"></div></td></tr>
 
-<!-- Difficult Sentence -->
+<!-- Grammar Tip -->
 <tr>
-<td style="padding:20px 24px 10px 24px;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:#1e3a4f;">🔍 长难句拆解</span>
+<td class="body-pad-x" style="padding:20px 24px 10px 24px;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:{{ theme.header_start }};">📐 语法小贴士</span>
 </td>
 </tr>
 <tr>
-<td style="padding:0 24px 24px 24px;">
-<div style="background-color:#f8f4ff;border-radius:8px;padding:20px 22px;">
-<div style="font-family:Georgia,serif;font-size:14px;color:#2d2d2d;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d8c8f0;">
-<span style="font-weight:700;color:#6b3fa0;">Original:</span><br>{{ difficult_sentence.original }}
+<td class="body-pad" style="padding:0 24px 20px 24px;">
+<div class="grammar-inner" style="background-color:{{ theme.card_bg }};border:1px solid {{ theme.card_border }};border-radius:8px;padding:18px 22px;">
+<div style="font-family:Georgia,serif;font-size:14px;color:{{ theme.accent }};font-weight:700;margin-bottom:10px;">{{ grammar_tip.pattern_en }}</div>
+<div style="font-family:Georgia,serif;font-size:13px;color:#555;line-height:1.7;margin-bottom:12px;padding:10px 14px;background:#fff;border-radius:4px;border-left:3px solid {{ theme.accent }};">
+{{ grammar_tip.sentence_from_article }}
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #d8c8f0;">
-<span style="font-weight:700;color:#6b3fa0;">语法拆解:</span><br>{{ difficult_sentence.parsing }}
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;color:#666;line-height:1.7;">
+{{ grammar_tip.explanation_cn }}
 </div>
-<div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:14px;color:#333;line-height:1.7;">
-<span style="font-weight:700;color:#6b3fa0;">参考翻译:</span><br>{{ difficult_sentence.translation }}
+</div>
+</td>
+</tr>
+{% endif %}
+
+{% if word_of_the_day %}
+<!-- Word of the Day -->
+<tr>
+<td class="body-pad-x" style="padding:0 24px 10px 24px;">
+</td>
+</tr>
+<tr>
+<td class="body-pad" style="padding:0 24px 20px 24px;">
+<div style="background:linear-gradient(135deg,{{ theme.card_bg }} 0%,#fff 100%);border:1px solid {{ theme.card_border }};border-radius:8px;padding:16px 22px;text-align:center;">
+<span style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:{{ theme.accent }};">🌟 Word of the Day</span>
+<div style="font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:700;color:{{ theme.header_start }};margin:8px 0;">{{ word_of_the_day.word }}</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;color:{{ theme.text_secondary }};line-height:1.6;">{{ word_of_the_day.why_cn }}</div>
+</div>
+</td>
+</tr>
+{% endif %}
+
+{% if difficult_sentence %}
+<!-- Divider -->
+<tr><td class="body-pad-x" style="padding:8px 24px;"><div style="border-top:1px dotted {{ theme.divider }};"></div></td></tr>
+
+<!-- Difficult Sentence -->
+<tr>
+<td class="body-pad-x" style="padding:20px 24px 10px 24px;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:20px;font-weight:600;color:{{ theme.header_start }};">🔍 长难句拆解</span>
+</td>
+</tr>
+<tr>
+<td class="body-pad" style="padding:0 24px 24px 24px;">
+<div class="ds-inner" style="background-color:{{ theme.card_bg }};border:1px solid {{ theme.card_border }};border-radius:8px;padding:20px 22px;">
+<div style="font-family:Georgia,serif;font-size:14px;color:#2d2d2d;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed {{ theme.card_border }};">
+<span style="font-weight:700;color:{{ theme.accent }};">Original:</span><br>{{ difficult_sentence.original }}
+</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed {{ theme.card_border }};">
+<span style="font-weight:700;color:{{ theme.accent }};">语法拆解:</span><br>{{ difficult_sentence.parsing }}
+</div>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:14px;color:#333;line-height:1.7;">
+<span style="font-weight:700;color:{{ theme.accent }};">参考翻译:</span><br>{{ difficult_sentence.translation }}
 </div>
 </div>
 </td>
@@ -182,18 +257,20 @@
 
 {% if daily_quote %}
 <!-- Divider -->
-<tr><td style="padding:0 24px;"><div style="border-top:1px solid #e6e0d4;"></div></td></tr>
+<tr><td class="body-pad-x" style="padding:8px 24px;"><div style="border-top:1px dotted {{ theme.divider }};"></div></td></tr>
 
 <!-- Daily Quote -->
 <tr>
-<td style="padding:22px 24px 6px 24px;text-align:center;">
-<span style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;color:#1e3a4f;">💬 Today's Quote</span>
+<td class="body-pad-x" style="padding:22px 24px 6px 24px;text-align:center;">
+<span class="section-head" style="font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:600;color:{{ theme.header_start }};">💬 Today's Quote</span>
 </td>
 </tr>
 <tr>
-<td style="padding:10px 24px 24px 24px;text-align:center;">
-<div style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-style:italic;color:#666;line-height:1.6;">
+<td class="body-pad" style="padding:10px 24px 24px 24px;text-align:center;">
+<div class="quote-inner" style="background-color:{{ theme.quote_bg }};border-radius:8px;padding:20px 24px;">
+<div style="font-family:'Playfair Display',Georgia,serif;font-size:17px;font-style:italic;color:#555;line-height:1.6;">
 &ldquo;{{ daily_quote }}&rdquo;
+</div>
 </div>
 </td>
 </tr>
@@ -201,14 +278,14 @@
 
 <!-- Footer -->
 <tr>
-<td style="background-color:#FAF8F5;padding:18px 24px;text-align:center;border-top:1px solid #e6e0d4;">
-<div style="font-family:Georgia,serif;font-size:12px;color:#aaa;line-height:1.8;">
-🔗 <a href="{{ source_url }}" style="color:#2c5f7a;text-decoration:underline;">Read original article</a>
+<td style="background-color:{{ theme.section_bg }};padding:18px 24px;text-align:center;border-top:1px solid {{ theme.divider }};">
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;color:{{ theme.text_secondary }};line-height:1.8;">
+🔗 <a href="{{ source_url }}" style="color:{{ theme.accent }};text-decoration:underline;">Read original article</a>
 {% if source_name %}
 &nbsp;·&nbsp; Source: {{ source_name }}
 {% endif %}
 </div>
-<div style="font-family:'Microsoft YaHei',sans-serif;font-size:11px;color:#c0c0c0;margin-top:8px;">
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;font-size:11px;color:#c0c0c0;margin-top:8px;">
 每日英语外刊 · 自动推送 · {{ date }}
 </div>
 </td>

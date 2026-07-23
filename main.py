@@ -339,7 +339,7 @@ Return exactly this JSON structure (fields marked * are new):
       "sentence": "自创简短例句，≤15词，含该词汇",
       "phrases": "2-4个常用搭配，分号分隔。无则 ''",
       "derivatives": "派生词，格式: 'create → creation (n. 创造), creative (adj. 有创造力的)'。无则 ''",
-      "same_root_words": "同根词，格式: '词根: dict- (=say, 说) → predict, dictate, contradict'。无则 ''",
+      "same_root_words": "同根词。先写词根及含义，再列出同根词，用分号分隔。格式如 'dict- (=说) → predict; dictate; contradict'。注意：不要写 '词根:' 或 'root:' 前缀。无则 ''",
       "synonyms": "2-4个近义词，分号分隔。无则 ''"
     }}
   ],
@@ -369,7 +369,7 @@ Return exactly this JSON structure (fields marked * are new):
 4. sentence: SHORT original example, max 15 words. Natural and helpful.
 5. phrases: 2-4 fixed collocations. "" if none.
 6. derivatives: word family with Chinese meanings in parentheses. "" if none.
-7. same_root_words: state root + meaning first, then list words. "" if none.
+7. same_root_words: root + meaning first, then "→", then words (semicolon-separated). Format: 'dict- (=说) → predict; dictate; contradict'. Do NOT prefix with '词根:' or 'root:'. "" if none.
 8. synonyms: 2-4 near-synonyms. "" if none.
 9. phonetic: standard IPA notation.
 10. bilingual_paragraphs: split by natural paragraph breaks. The en field MUST be character-for-character identical to the source. Count MUST match the source paragraph count.
@@ -389,7 +389,7 @@ Return exactly this JSON structure (fields marked * are new):
         "model": "deepseek-v4-flash",
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0.1,
-        "max_tokens": 16384,
+        "max_tokens": 32768,
         "response_format": {"type": "json_object"},
     }
 
@@ -461,10 +461,19 @@ def render_email(article, analysis):
     vocab = analysis.get("vocabulary", [])
     ds = analysis.get("difficult_sentence") or {}
 
-    # 为每个词汇的例句加高亮
+    # 为每个词汇的例句加高亮 + 清理同根词前缀
     for v in vocab:
         v["sentence_html"] = highlight_word_in_sentence(
             v.get("sentence", ""), v.get("word", ""), v.get("derivatives", ""))
+        # 去掉 "词根: " / "root: " 赘余前缀，保留根信息和词列表
+        sr = v.get("same_root_words", "")
+        if sr:
+            sr = sr.strip()
+            for prefix in ("词根: ", "词根:", "root: ", "root:"):
+                if sr.startswith(prefix):
+                    sr = sr[len(prefix):]
+                    break
+            v["same_root_words"] = sr
 
     # 生成高亮版原文段落（用于 English Original 区）
     highlighted = highlight_content(article["content"], vocab, ds if ds.get("original") else None)
